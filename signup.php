@@ -1,11 +1,22 @@
 <?php
+<<<<<<< HEAD
 require_once "db.php";
 
+=======
+# Setting up form to be displayed.
+
+require_once "db.php";
+
+>>>>>>> 65092830ef1a75d542ce0a2b6edb7b6529a3a53e
 $username = $email = "";
 $usernameErr = $emailErr = $passwordErr = $confirmPasswordErr = "";
 $successMsg = "";
 
+<<<<<<< HEAD
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+=======
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+>>>>>>> 65092830ef1a75d542ce0a2b6edb7b6529a3a53e
     
     // Trim and sanitize inputs
     $username = sanitize_data($_POST["txt_username"]);
@@ -18,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $usernameErr = "Username is required.";
     } elseif (!preg_match('/^[a-zA-Z0-9_ ]{3,45}$/', $username)) {
         $usernameErr = "Username must be 3-45 characters long and contain only letters, numbers, and underscores.";
+<<<<<<< HEAD
     }
 
     // Validate email
@@ -74,7 +86,74 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $successMsg = "Database error: " . $e->getMessage();
             }
         }
+=======
+>>>>>>> 65092830ef1a75d542ce0a2b6edb7b6529a3a53e
     }
+
+    // Validate email
+    if (empty($email)) {
+        $emailErr = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/', $email)) {
+        $emailErr = "Please enter a valid email address.";
+    }
+
+    // Validate password
+    if (empty($pass1)) {
+        $passwordErr = "Password is required.";
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-])[A-Za-z\d!@#$%^&*()_\-]{8,255}$/', $pass1)) {
+        $passwordErr = "Password must be 8-255 chars, include at least 1 uppercase, 1 lowercase, 1 number, and 1 special char.";
+    }
+
+    // Confirm password
+    if ($pass1 !== $pass2) {
+        $confirmPasswordErr = "Passwords do not match.";
+    }
+
+    // If no errors, insert into DB
+    if (empty($usernameErr) && empty($emailErr) && empty($passwordErr) && empty($confirmPasswordErr)) {
+        
+        try {
+            
+            $hashed_password = password_hash($pass1, PASSWORD_DEFAULT);
+
+            // Insert into Users table
+            $sql_insert_users = "INSERT INTO Users (Username, Email, Password) VALUES (:username, :email, :password)";
+            $stmt = $db->prepare($sql_insert_users);
+            $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+            $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+            $stmt->bindParam(":password", $hashed_password, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Get the new UserID
+            $newUserID = $db->lastInsertId();
+
+            // Insert into RegisteredUsers table
+            $sql_insert_registeredUsers = "INSERT INTO RegisteredUsers (UserID) VALUES (:userID)";
+            $stmt2 = $db->prepare($sql_insert_registeredUsers);
+            $stmt2->bindParam(":userID", $newUserID, PDO::PARAM_INT);
+            $stmt2->execute();
+
+
+            $successMsg = "Account created successfully for " . htmlspecialchars($username) . " Login from Home page to access Account";
+
+            // Clear input fields
+            $username = $email = "";
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                $emailErr = "Username or Email already exists.";
+            } else {
+                $successMsg = "Database error: " . $e->getMessage();
+            }
+        }
+    }
+}
+
+function sanitize_data($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data); 
+  return $data;
+
 }
 
 // function to sanitize user inputs
