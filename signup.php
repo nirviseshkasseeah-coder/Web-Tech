@@ -1,25 +1,93 @@
 <?php
-# Setting up form to be displayed.
-$message = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $pass1 = $_POST["password"];
-    $pass2 = $_POST["confirm_password"];
+require_once "db.php";
 
-    # Messages to be displayed depending on the error made by user.
-    if ($username == "" || $email == "" || $pass1 == "" || $pass2 == "") {
-        $message = "Please fill in all the fields.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message = "Email is not valid!";
-    } elseif ($pass1 != $pass2) {
-        $message = "Passwords do not match!";
-    } else {
-        $message = "Account setup successfully for " .
-htmlspecialchars($username);
+$username = $email = "";
+$usernameErr = $emailErr = $passwordErr = $confirmPasswordErr = "";
+$successMsg = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    // Trim and sanitize inputs
+    $username = sanitize_data($_POST["txt_username"]);
+    $email = filter_var(trim($_POST["txt_email"]), FILTER_SANITIZE_EMAIL);
+    $pass1 = $_POST["txt_password"];
+    $pass2 = $_POST["txt_confirm_password"];
+
+    // Validate username
+    if (empty($username)) {
+        $usernameErr = "Username is required.";
+    } elseif (!preg_match('/^[a-zA-Z0-9_ ]{3,45}$/', $username)) {
+        $usernameErr = "Username must be 3-45 characters long and contain only letters, numbers, and underscores.";
+    }
+
+    // Validate email
+    if (empty($email)) {
+        $emailErr = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/', $email)) {
+        $emailErr = "Please enter a valid email address.";
+    }
+
+    // Validate password
+    if (empty($pass1)) {
+        $passwordErr = "Password is required.";
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-])[A-Za-z\d!@#$%^&*()_\-]{8,255}$/', $pass1)) {
+        $passwordErr = "Password must be 8-255 chars, include at least 1 uppercase, 1 lowercase, 1 number, and 1 special char.";
+    }
+
+    // Confirm password
+    if ($pass1 !== $pass2) {
+        $confirmPasswordErr = "Passwords do not match.";
+    }
+
+    // If no errors, insert into DB
+    if (empty($usernameErr) && empty($emailErr) && empty($passwordErr) && empty($confirmPasswordErr)) {
+        try {
+            $hashed_password = password_hash($pass1, PASSWORD_DEFAULT);
+
+            // Insert into Users table
+            $sql_insert_users = "INSERT INTO Users (Username, Email, Password) VALUES (:username, :email, :password)";
+            $stmt = $db->prepare($sql_insert_users);
+            $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+            $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+            $stmt->bindParam(":password", $hashed_password, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Get the new UserID
+            $newUserID = $db->lastInsertId();
+
+            // Insert into RegisteredUsers table
+            $sql_insert_registeredUsers = "INSERT INTO RegisteredUsers (UserID) VALUES (:userID)";
+            $stmt2 = $db->prepare($sql_insert_registeredUsers);
+            $stmt2->bindParam(":userID", $newUserID, PDO::PARAM_INT);
+            $stmt2->execute();
+
+
+            $successMsg = "Account created successfully for " . htmlspecialchars($username) . " Login from Home page to access Account";
+
+            // Clear input fields
+            $username = $email = "";
+
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                $emailErr = "Username or Email already exists.";
+            } else {
+                $successMsg = "Database error: " . $e->getMessage();
+            }
+        }
     }
 }
+
+// function to sanitize user inputs
+function sanitize_data($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data); 
+  return $data;
+
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,22 +112,36 @@ htmlspecialchars($username);
             <img src = "logo.png" alt = "Ryan Coffee Shop Logo">
         </div>
 
-        <?php if ($message != ""): ?>
-            <p class = "info"><?php echo $message; ?></p>
+        <?php if ($successMsg != ""): ?>
+            <p class = "info"><?php echo $successMsg; ?></p>
         <?php endif; ?>
 
-        <form method = "post" class = "form input">
+        <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
+
             <label>Username</label>
-            <input type="text" name="username" placeholder="Enter your username">
+            <input type="text" name="txt_username" value="<?php echo
+            htmlspecialchars($username); ?>"
+                required minlength="3" maxlength="45" pattern="[a-zA-Z0-9_ ]{3,45}"
+                title="Only letters, numbers, and underscores" placeholder="Enter your username">
+            <span class="error"><?php echo $usernameErr; ?></span><br>
 
             <label>Email</label>
-            <input type="text" name="email" placeholder="Enter your email">
+            <input type="email" name="txt_email"  value="<?php echo htmlspecialchars($email); ?>" 
+                required title="Enter a valid email" placeholder="Enter your email">
+            <span class="error"><?php echo $emailErr; ?></span><br>
 
             <label>Password</label>
-            <input type="password" name="password" placeholder="Enter your password">
+            <input type="password" name="txt_password" autocomplete="new-password"
+                required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-])[A-Za-z\d!@#$%^&*()_\-]{8,255}"
+                title="Password must be 8-255 chars, include at least 1 uppercase, 1 lowercase, 1 number, and 1 special char."
+                placeholder="Enter your password">
+            <span class="error"><?php echo $passwordErr; ?></span><br>
 
-            <label>Confirm password</label>
-            <input type="password" name="confirm password" placeholder="Re-enter your password">
+            <label>Confirm Password</label>
+            <input type="password" name="txt_confirm_password" autocomplete="new-password"
+                required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-])[A-Za-z\d!@#$%^&*()_\-]{8,255}"
+                placeholder="Re-enter your password">
+            <span class="error"><?php echo $confirmPasswordErr; ?></span><br>
 
             <button type="submit" class="submit-btn">Sign Up</button>
         </form>
