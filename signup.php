@@ -40,6 +40,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($pass1 !== $pass2) {
         $confirmPasswordErr = "Passwords do not match.";
     }
+
+    // If no errors, insert into DB
+    if (empty($usernameErr) && empty($emailErr) && empty($passwordErr) && empty($confirmPasswordErr)) {
+        
+        try {
+            
+            $hashed_password = password_hash($pass1, PASSWORD_DEFAULT);
+
+            // Insert into Users table
+            $sql_insert_users = "INSERT INTO Users (Username, Email, Password) VALUES (:username, :email, :password)";
+            $stmt = $db->prepare($sql_insert_users);
+            $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+            $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+            $stmt->bindParam(":password", $hashed_password, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Get the new UserID
+            $newUserID = $db->lastInsertId();
+
+            // Insert into RegisteredUsers table
+            $sql_insert_registeredUsers = "INSERT INTO RegisteredUsers (UserID) VALUES (:userID)";
+            $stmt2 = $db->prepare($sql_insert_registeredUsers);
+            $stmt2->bindParam(":userID", $newUserID, PDO::PARAM_INT);
+            $stmt2->execute();
+
+
+            $successMsg = "Account created successfully for " . htmlspecialchars($username) . " Login from Home page to access Account";
+
+            // Clear input fields
+            $username = $email = "";
 }
 
 function sanitize_data($data) {
