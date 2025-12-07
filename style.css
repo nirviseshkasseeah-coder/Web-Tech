@@ -1,0 +1,128 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #fff;
+  color: #2b2b2b;
+  overflow-x: auto;
+}
+
+/* HEADER */
+.header {
+  background: #d8c3a5;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 2.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  background: #000;
+  color: #fff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.4rem;
+  font-weight: bold;
+  margin-left: 0.8rem;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+}
+
+.hero-img {
+  width: 100%;
+  height: 22rem;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.hero-text h3 {
+  margin-bottom: 1.2rem;
+}
+
+
+.category-buttons a {
+  text-decoration: none;
+  margin: 0.3rem;
+  padding: 0.5rem 1rem;
+  background: #000;
+  color: #fff;
+  border-radius: 0.4rem;
+  font-weight: bold;
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  margin: 2rem 0 1rem;
+}
+
+/* GENERAL CARD STYLING */
+.dessert-card, .dessert-card2 {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s;
+  height: 100%;
+}
+
+.dessert-card:hover, .dessert-card2:hover {
+  transform: translateY(-5px);
+}
+
+.dessert-card img, .dessert-card2 img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 1rem;
+}
+
+.dessert-card h3, .dessert-card2 h3 {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.dessert-card p, .dessert-card2 p {
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.price-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 0;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.price-btn:hover {
+  background-color: #333;
+}
