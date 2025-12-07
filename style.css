@@ -112,3 +112,72 @@ body {
 .winter-section h2 {
     font-size: 26px;
 }
+
+/* PRODUCT CARDS */
+.product-list {
+    padding: 20px;
+}
+
+.product-card {
+    display: flex;
+    background: white;
+    padding: 20px 20px 20px 5px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    gap: 20px;
+    flex-direction: row-reverse;   /* Flips image & text */
+    align-items: center;
+
+}
+
+.product-card img {
+    width: 50%;
+    border-radius: 12px;
+}
+
+.product-info {
+    transform: translateX(-5px);
+}
+
+.product-info h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.product-info p {
+    margin-bottom: 10px;
+}
+
+
+
+.redeem-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.points {
+    background: #000;        /* Black background */
+    color: #fff;             /* White text */
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+
+.redeem-btn {
+    background: #d9d9d9;      /* Light grey */
+    color: #000;              /* Black text */
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    font-weight: bold;
+}
+
+.redeem-btn:hover {
+    background: #bfbfbf;      /* Slightly darker grey on hover */
+    transform: scale(1.05);   /* Hover scale effect */
+    
+}
