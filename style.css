@@ -210,4 +210,49 @@ body {
     justify-content: center;   /* Centers points + button */
 }
 
+/* FOOTER */
+.footer {
+    background: #d8c3a5;
+    padding: 20px;
+    margin-top: 40px;
+}
 
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-col a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    margin: 4px 0;
+    transition: 0.3s;
+}
+
+.footer-col a:hover {
+    color: #5b3e27;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .product-card {
+        flex-direction: column;
+    }
+
+    .product-card img {
+        width: 100%;
+    }
+
+    .winter-grid {
+        flex-direction: column;
+    }
+
+    .winter-card {
+        width: 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 24px;
+    }
+}
