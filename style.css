@@ -1,0 +1,277 @@
+:root{
+  --bg: #F9F6F1;
+  --cream: #CBB89D;
+  --primary: #6F4E37; /* brown */
+  --accent: #E1C699;  /* light cream */
+  --muted: #828282;
+  --dark: #000000;
+  --card-bg: #FFFFFF;
+  --max-width: 1200px;
+  --radius: 12px;
+  --gap: 24px;
+}
+
+/* Basic reset */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+}
+
+/* Container helper */
+.container{
+  width: min(96%, var(--max-width));
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Header */
+.site-header{
+  background: transparent;
+  position: sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter: blur(4px);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.logo-circle{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background: linear-gradient(180deg,var(--cream), #bfa77f);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.brand-name{
+  font-family: "Jacques Francois", serif;
+  font-size:20px;
+  color:var(--primary);
+  font-weight:400;
+}
+
+/* Navigation */
+.main-nav ul{
+  list-style:none;
+  display:flex;
+  gap:24px;
+  margin:0;
+  padding:0;
+  align-items:center;
+}
+.main-nav a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+}
+.main-nav .btn.small{
+  padding:8px 14px;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+}
+
+/* Buttons - reusable */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 22px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:500;
+  cursor:pointer;
+  border:0;
+}
+.btn.primary{
+  background:var(--primary);
+  color:#fff;
+}
+.btn.secondary{
+  background:var(--accent);
+  color:var(--dark);
+}
+.btn.full{width:100%}
+.small{padding:6px 10px;font-size:14px}
+
+/* HERO */
+.hero{
+  padding:48px 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05), transparent);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1fr 460px;
+  gap:32px;
+  align-items:center;
+}
+.hero-quote{
+  font-family:"Jacques Francois", serif;
+  font-size:40px;
+  line-height:1.05;
+  margin:0 0 8px;
+  color:var(--dark);
+}
+.hero-author{
+  margin:0 0 18px;
+  color:var(--muted);
+  font-weight:500;
+}
+.hero-sub{
+  font-size:20px;
+  margin-bottom:22px;
+  color:rgba(0,0,0,0.85);
+  max-width:600px;
+}
+.hero-actions{display:flex; gap:16px; flex-wrap:wrap}
+.hero-media{ justify-self:end; }
+.hero-img{
+  width:100%;
+  height: auto;
+  border-radius:18px;
+  object-fit:cover;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+}
+
+/* SECTION / STORY */
+.section{
+  padding:56px 0;
+}
+.story-inner{
+  display:flex;
+  gap:36px;
+  align-items:center;
+  justify-content:space-between;
+}
+.story-text{flex:1; max-width:60%}
+.section-title{
+  font-family:"Jacques Francois", serif;
+  font-size:48px;
+  margin:0 0 14px;
+  color:var(--dark);
+}
+.lead{
+  font-size:20px;
+  color:rgba(0,0,0,0.9);
+}
+.story-image img{
+  width:420px;
+  border-radius:18px;
+  object-fit:cover;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* SHOPS */
+.shops .section-sub{
+  margin-top:12px;
+  margin-bottom:22px;
+  font-family:"Jacques Francois", serif;
+  font-size:20px;
+  color:var(--dark);
+}
+.shops-grid{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:18px;
+}
+.shops-grid img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* ACCOUNT (login + socials) */
+.account-grid{
+  display:grid;
+  grid-template-columns: 1fr 380px;
+  gap:28px;
+  align-items:start;
+}
+.card{
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+.login-card h4, .socials h4{ margin:0 0 16px; font-family:"Jacques Francois", serif; color:var(--primary); font-size:28px; }
+.login-form label{ display:block; margin-bottom:12px; font-size:14px; color:var(--primary); }
+.login-form input[type="email"],
+.login-form input[type="password"]{
+  width:100%;
+  padding:12px 14px;
+  border-radius:8px;
+  border:1px solid #e6e6e6;
+  font-size:16px;
+  margin-top:6px;
+}
+.form-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:8px; margin-bottom:10px; }
+.checkbox{ display:flex; align-items:center; gap:8px; font-size:14px; color:var(--muted); }
+.forgot{ font-size:14px; color:var(--muted); text-decoration:none }
+.form-actions{ display:flex; gap:12px; margin-top:10px; }
+
+/* Socials */
+.social-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:12px; align-items:center; }
+.social{ display:flex; gap:10px; align-items:center; text-decoration:none; color:var(--primary); font-weight:500; }
+.social img{ width:42px; height:42px; object-fit:cover; }
+
+/* TESTIMONIALS */
+.testimonials-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  margin-top:20px;
+}
+.testimonial .quote{ font-weight:500; margin:0 0 12px; font-size:18px; color:var(--dark); }
+.testimonial .meta{ display:flex; gap:12px; align-items:center; }
+.avatar{ width:45px; height:45px; border-radius:50%; object-fit:cover; }
+
+/* FOOTER */
+.site-footer{
+  background:var(--primary);
+  color:#fff;
+  padding:28px 0;
+  margin-top:40px;
+}
+.footer-inner{ display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center; }
+.footer-links{ font-family:"Jacques Francois", serif; margin:0; font-size:14px; opacity:0.95; }
+copyright{}
+
+/* Responsive */
+@media (max-width: 980px){
+  :root{ --max-width: 920px; }
+  .hero-grid{ grid-template-columns: 1fr; }
+  .story-inner{ flex-direction:column; align-items:flex-start; }
+  .story-text{ max-width:100% }
+  .shops-grid{ grid-template-columns: repeat(2,1fr); }
+  .account-grid{ grid-template-columns: 1fr; }
+  .testimonials-grid{ grid-template-columns: 1fr; }
+  .hero-quote{ font-size:36px; }
+  .section-title{ font-size:36px; }
+}
+
+@media (max-width: 560px){
+  .main-nav{ display:none; }
+  .brand-name{ font-size:18px; }
+  .hero-quote{ font-size:28px; }
+  .story-image img{ width:100%; height:auto; }
+  .shops-grid{ grid-template-columns: 1fr; }
+  .hero-sub{ font-size:18px; }
+  .header-inner{ padding:12px 0; }
+}
