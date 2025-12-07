@@ -181,3 +181,33 @@ body {
     transform: scale(1.05);   /* Hover scale effect */
     
 }
+
+/* WINTER CARDS */
+.winter-grid {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.winter-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 50%;
+    text-align: center;    /* Centers all text */
+}
+
+
+
+.winter-card img {
+    width: 80%;
+    display: block;
+    margin: 0 auto;     /* centers the image */
+    border-radius: 12px;
+}
+
+.winter-card .redeem-row {
+    justify-content: center;   /* Centers points + button */
+}
+
+
