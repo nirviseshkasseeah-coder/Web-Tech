@@ -126,3 +126,49 @@ body {
 .price-btn:hover {
   background-color: #333;
 }
+
+/* CAKES GRID */
+.cake-products {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6-column grid for fractional spans */
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Top row: 3 cards = span 2 columns each */
+.cake-products .dessert-card {
+  grid-column: span 2;
+}
+
+/* Bottom row: 2 cards = span 3 columns each */
+.cake-products .dessert-card2 {
+  grid-column: span 3;
+}
+
+/* PANCAKES GRID: 3 cards per row */
+.pancake-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* FOOTER */
+.footer {
+  background: #d8c3a5;
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  margin: 0.5rem 0;
+}
