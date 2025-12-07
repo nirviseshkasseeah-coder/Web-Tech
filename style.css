@@ -92,3 +92,23 @@ body {
     background: #6f4e36;
     transform: scale(1.05);
 }
+
+.contact {
+    position: absolute;
+    bottom: -110px;        /* Moves to bottom of hero */
+    left: 20px;          /* Aligns left */
+    margin: 0;
+    text-align: left;
+}
+
+
+/* TITLES */
+.reward-title,
+.winter-section {
+    padding: 30px 20px 10px;
+}
+
+.reward-title h2,
+.winter-section h2 {
+    font-size: 26px;
+}
