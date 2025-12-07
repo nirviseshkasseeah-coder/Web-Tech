@@ -15,16 +15,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass1 = $_POST["txt_password"];
     $pass2 = $_POST["txt_confirm_password"];
 
-    # Messages to be displayed depending on the error made by user.
-    if ($username == "" || $email == "" || $pass1 == "" || $pass2 == "") {
-        $message = "Please fill in all the fields.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message = "Email is not valid!";
-    } elseif ($pass1 != $pass2) {
-        $message = "Passwords do not match!";
-    } else {
-        $message = "Account setup successfully for " .
-htmlspecialchars($username);
+    // Validate username
+    if (empty($username)) {
+        $usernameErr = "Username is required.";
+    } elseif (!preg_match('/^[a-zA-Z0-9_ ]{3,45}$/', $username)) {
+        $usernameErr = "Username must be 3-45 characters long and contain only letters, numbers, and underscores.";
+    }
+
+    // Validate email
+    if (empty($email)) {
+        $emailErr = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/', $email)) {
+        $emailErr = "Please enter a valid email address.";
+    }
+
+    // Validate password
+    if (empty($pass1)) {
+        $passwordErr = "Password is required.";
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-])[A-Za-z\d!@#$%^&*()_\-]{8,255}$/', $pass1)) {
+        $passwordErr = "Password must be 8-255 chars, include at least 1 uppercase, 1 lowercase, 1 number, and 1 special char.";
+    }
+
+    // Confirm password
+    if ($pass1 !== $pass2) {
+        $confirmPasswordErr = "Passwords do not match.";
     }
 }
 
