@@ -172,3 +172,26 @@ body {
   text-align: center;
   margin: 0.5rem 0;
 }
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 992px) {
+  .cake-products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .cake-products .dessert-card2 {
+    grid-column: span 3; /* bottom cards full width on smaller screens */
+  }
+  .pancake-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cake-products, .pancake-products {
+    grid-template-columns: 1fr;
+  }
+  .cake-products .dessert-card2, .cake-products .dessert-card,
+  .pancake-products .dessert-card {
+    grid-column: span 1;
+  }
+}
