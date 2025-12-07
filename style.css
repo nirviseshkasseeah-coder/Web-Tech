@@ -5,9 +5,16 @@
     font-family: Gerogia, serif;    /* Use Georgia as font for all text. */
 }
 
+html, body {
+    height: 100%;
+}
+
 /* Customize background color of the whole account creation page. */
 body {
-    background-color: #E9D8C1;     
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;       /* fill the viewport */
+    background-color: #E9D8C1    
 }
 
 /* Customize top buttons for Home and About us. */
@@ -19,9 +26,9 @@ body {
 
 /* Set image after top bar and before footer. */
 .body-img {
+    flex-grow: 1;             /* takes remaining space between top-bar and footer */
     position: relative;
-    padding: 40px 0 60px 0;
-    overflow: hidden;       /* Hide image part outside box. */
+    padding: 40px 0 0 0;
 }
 
 /* Creates a fake box for the background image. */
@@ -74,15 +81,43 @@ body {
     margin: 0 auto 40px auto;   /* Center the card and add space.*/
     background-color: #DEC7A6;      /* Background color of the card. */
     padding: 25px;      /* Add Space inside the card. */
-    border-radius: 10px;    /* Round the corners. */
+    border-radius: 12px;    /* Round the corners. */
+    box-shadow: 2px 4px 4px rgba(0,0,0,0.4);  /* Adds shadow  x-offset, y-offset, blur, color */
 }
 
 /* Style the title "Sign Up" in the card. */
 .card-title {
     text-align: center;
-    margin-bottom: 10px;    /* Put space below title */
-    color:#6F4E37; 
+    color: #6F4E37;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;      
+    margin-top: 5px;    /* reduce top margin to move up */
+    margin-bottom: 20px; /* keep space below */
 }
+
+/* Horizontal bars */
+.card-title::before,
+.card-title::after {
+    content: "";
+    position: absolute;
+    top: 50%;               /* vertically centered relative to text */
+    height: 5px;            
+    background-color: #6f4e37a1;
+    border-radius: 3px;     
+    width: calc(50% - 60px); 
+}
+
+/* Left bar */
+.card-title::before {
+    left: 0;
+}
+
+/* Right bar */
+.card-title::after {
+    right: 0;
+}
+
 
 /* Position Ryan Coffee Logo. */
 .logo-circle {
@@ -100,11 +135,22 @@ body {
 
 .form input {
     width: 100%;        /* Input size. */
-    padding: 8px;       /* Add space the inputs. */
+    padding: 10px 12px;       /* Add space the inputs. */
     margin-top: 6px;        /* Space between label and input. */
-    border-radius: 6px;     /* Round the corners. */
-    border: 1px solid #6F4E37;      /* Thin brown border. */
-    background-color: #F9F6F1;      /* Light brown. */
+    border-radius: 8px;     /* Round the corners. */
+    border: 1px solid #A4896A;      /* Thin brown border. */
+    background-color: #F2E9DA;      /* Light brown. */
+    box-shadow: 2px 4px 6px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.5);  /* inner highlight */ 
+    color: #3A2F28;   
+    transition: all 0.25s ease;
+}
+
+/* Input glow effect */
+.form input:focus {
+    outline: none;
+    border-color: #6F4E37;                 
+    box-shadow: 0 0 10px rgba(111, 78, 55, 0.6),   /* NEW warm glow */ inset 0 1px 2px rgba(255,255,255,0.6);/* give a glowing effect*/
+    background-color: #F2E9DA;                   
 }
 
 .form input::-webkit-input-placeholder {
@@ -115,20 +161,73 @@ body {
 .submit-btn {
     margin-top: 18px;       /* Add space above the button. */
     width: 100%;            /* Width of the button. */
-    padding: 10px;          /* Height of the button. */
+    padding: 12px;          /* Height of the button. */
     background-color: #6F4E37;      /* Brown background colour. */
     color: #FFFFFF;       /* White text. */
     border: none;       /* No border. */
-    border-radius: 6px;     /* Round the corners. */
+    border-radius: 8px;     /* Round the corners. */
+    font-size: 16px;
     cursor: pointer;        /* Pointer cursor when hovering. */
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.4); /* x-offset: 0, y-offset: 6px (shadow below), blur: 6px, slightly lighter opacity */
+    transition: all 0.25s ease;
+}
+
+/* Hover: warm glow */
+.submit-btn:hover {
+    box-shadow:
+        0 0 10px rgba(111, 78, 55, 0.6),
+        2px 4px 6px rgba(0,0,0,0.5);
+    transform: translateY(-2px); /* slight lift */
+}
+
+/* Active / Click: pressed effect */
+.submit-btn:active {
+    transform: translateY(1px);
+    box-shadow:
+        1px 2px 3px rgba(0,0,0,0.35);
+    filter: brightness(0.9); /* darker when pressed */
 }
 
 /* For error messages and success for account creation. */
 .info {
-    text-align: center;     /* Center the text message. */
-    margin-bottom: 8px;     /* Add space below the text message. */
-    color: #784d2f     /* Dark brown text */
+    background: #F4E8D5;                   /* soft cream */
+    color: #5B3E2B;                        /* deep coffee brown */
+    padding: 14px 18px;
+    border-left: 6px solid #8A6F4D;        /* coffee accent left border */
+    border-radius: 12px;                   /* rounded box */
+    font-weight: 600;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.25);
+    margin-bottom: 16px;
+    text-align: center;
+    animation: fadeSlide 0.45s ease-out;
 }
+
+/* Error messages (under input fields) */
+.error {
+    display: inline-block;
+    background: #F7D8D8;                  /* light red background */
+    color: #7A1F1F;                        /* deep red text */
+    padding: 6px 10px;
+    margin-top: 4px;
+    border-left: 4px solid #B73232;
+    border-radius: 8px;
+    font-size: 13px;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+    animation: fadeSlide 0.45s ease-out;
+}
+
+/* Animation */
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* Footer of the page. */
 .footer {
@@ -138,4 +237,5 @@ body {
     padding: 15px 5px;      /* Space inside the footer. */
     font-size: 11px;        /* Size of the footer text */
     line-height: 1.5;       /* Add space between footer lines. */
+    margin-top: auto;
 }
