@@ -1,11 +1,19 @@
 <?php
 # Setting up form to be displayed.
-$message = "";
+
+require_once "db.php";
+
+$username = $email = "";
+$usernameErr = $emailErr = $passwordErr = $confirmPasswordErr = "";
+$successMsg = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $pass1 = $_POST["password"];
-    $pass2 = $_POST["confirm_password"];
+    
+    // Trim and sanitize inputs
+    $username = sanitize_data($_POST["txt_username"]);
+    $email = filter_var(trim($_POST["txt_email"]), FILTER_SANITIZE_EMAIL);
+    $pass1 = $_POST["txt_password"];
+    $pass2 = $_POST["txt_confirm_password"];
 
     # Messages to be displayed depending on the error made by user.
     if ($username == "" || $email == "" || $pass1 == "" || $pass2 == "") {
@@ -18,6 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Account setup successfully for " .
 htmlspecialchars($username);
     }
+}
+
+function sanitize_data($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data); 
+  return $data;
+
 }
 ?>
 <!DOCTYPE html>
