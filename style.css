@@ -1,0 +1,141 @@
+* {
+    margin: 0;         /* Remove default outside space. */
+    padding: 0;         /* Remove default outside space. */
+    box-sizing: border-box;     /* Include padding and bordering. */
+    font-family: Gerogia, serif;    /* Use Georgia as font for all text. */
+}
+
+/* Customize background color of the whole account creation page. */
+body {
+    background-color: #E9D8C1;     
+}
+
+/* Customize top buttons for Home and About us. */
+.top-bar {
+    background-color: #f7eee4;
+    padding: 15px;
+    position: relative;
+}
+
+/* Set image after top bar and before footer. */
+.body-img {
+    position: relative;
+    padding: 40px 0 60px 0;
+    overflow: hidden;       /* Hide image part outside box. */
+}
+
+/* Creates a fake box for the background image. */
+.body-img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url("body.jpg");      /* Use body.jpg as background image. */
+    background-size:cover;      /* Cover whole area. */
+    background-repeat: no-repeat;
+    opacity: 0.5;      /* Image become see-through */
+    z-index: 0;         /* Makes the background image "body.jpg" stay behind the tagline and card. */
+}
+
+.body-img .tagline,
+.body-img .card {
+    position: relative;
+    z-index: 1;         /* Makes tagline and card stay in front of the */
+}
+
+/* brown button with white text for Sign Up. */
+.nav-btn {
+    background-color: #6F4E37; 
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 25px;   /* Adjust button size. */
+    border-radius: 6px;     /* Round the corners. */
+    cursor: pointer;        /* Pointer cursor when hovering. */
+}
+
+/* More style for button on the right "About Us". */
+.nav-btn.right {
+    position: absolute;
+    right: 15px;
+}
+
+/* Style for "Sign Up, Sip Up, Reward Up!" */
+.tagline {
+    text-align: center;     /* Center the text. */
+    margin: 25px 0;         /* Put space below and above the text. */
+    color:#6F4E37; 
+}
+
+/*Style for the "Sign Up" card in the center. */
+.card {
+    width: 400px;       /* Fixed width of the card. */
+    margin: 0 auto 40px auto;   /* Center the card and add space.*/
+    background-color: #DEC7A6;      /* Background color of the card. */
+    padding: 25px;      /* Add Space inside the card. */
+    border-radius: 10px;    /* Round the corners. */
+}
+
+/* Style the title "Sign Up" in the card. */
+.card-title {
+    text-align: center;
+    margin-bottom: 10px;    /* Put space below title */
+    color:#6F4E37; 
+}
+
+/* Position Ryan Coffee Logo. */
+.logo-circle {
+    display: flex;      /* Use flexbox to center the text inside the circle. */
+    align-items: center;        /* Center vertically. */
+    justify-content: center;    /* Center horizontally. */
+}
+
+/* Fill form and labels. */
+.form label {
+    display:  block;        /* Each label take a newline. */
+    margin-top: 10px;       /* Put space above each label. */
+    color: #6F4E37;
+}
+
+.form input {
+    width: 100%;        /* Input size. */
+    padding: 8px;       /* Add space the inputs. */
+    margin-top: 6px;        /* Space between label and input. */
+    border-radius: 6px;     /* Round the corners. */
+    border: 1px solid #6F4E37;      /* Thin brown border. */
+    background-color: #F9F6F1;      /* Light brown. */
+}
+
+.form input::-webkit-input-placeholder {
+    color:#6F4E37;
+}
+
+/* Sign Up button in the form. */
+.submit-btn {
+    margin-top: 18px;       /* Add space above the button. */
+    width: 100%;            /* Width of the button. */
+    padding: 10px;          /* Height of the button. */
+    background-color: #6F4E37;      /* Brown background colour. */
+    color: #FFFFFF;       /* White text. */
+    border: none;       /* No border. */
+    border-radius: 6px;     /* Round the corners. */
+    cursor: pointer;        /* Pointer cursor when hovering. */
+}
+
+/* For error messages and success for account creation. */
+.info {
+    text-align: center;     /* Center the text message. */
+    margin-bottom: 8px;     /* Add space below the text message. */
+    color: #784d2f     /* Dark brown text */
+}
+
+/* Footer of the page. */
+.footer {
+    background-color: #6F4E37;      /* Brown background colour. */
+    color: #FFFFFF;       /* White footer text. */
+    text-align: center;     /* Center the footer lines. */
+    padding: 15px 5px;      /* Space inside the footer. */
+    font-size: 11px;        /* Size of the footer text */
+    line-height: 1.5;       /* Add space between footer lines. */
+}
