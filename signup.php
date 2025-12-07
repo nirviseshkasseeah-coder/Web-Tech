@@ -70,6 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Clear input fields
             $username = $email = "";
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                $emailErr = "Username or Email already exists.";
+            } else {
+                $successMsg = "Database error: " . $e->getMessage();
+            }
+        }
+    }
 }
 
 function sanitize_data($data) {
