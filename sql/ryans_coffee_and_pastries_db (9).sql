@@ -418,6 +418,30 @@ INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`) VALUES
 (1045, 'Mike Johnson', 'mike.johnson@gmail.com', '$2y$10$XFWAsGzyr0IC7UU1zBrGO.Jwe4hXKY3YSoqI3SMZbH9QsmwtficN2'),
 (1048, 'Cole Smith', 'cole.smith@gmail.com', '$2y$10$Qugn6Xb1hhiR.6.vuGsRmu2UxC06Tz4w//QSK2lbvT6EjwjymuMNG');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `ReviewID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `ProductID` int(11) NOT NULL,
+  `Rating` tinyint(1) NOT NULL CHECK (Rating >= 1 AND Rating <= 5),
+  `Comment` text NOT NULL,
+  `CreatedAt` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`ReviewID`),
+  KEY `UserID` (`UserID`),
+  KEY `ProductID` (`ProductID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+
+
 --
 -- Indexes for dumped tables
 --
@@ -500,6 +524,15 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`ReviewID`),
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `ProductID` (`ProductID`);
+
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -580,6 +613,14 @@ ALTER TABLE `redeems`
 --
 ALTER TABLE `registeredusers`
   ADD CONSTRAINT `registeredusers_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`) ON DELETE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
