@@ -1,23 +1,16 @@
 <?php
-<<<<<<< HEAD
-require_once "db.php";
 
-=======
 # Setting up form to be displayed.
 
 require_once "db.php";
 
->>>>>>> 65092830ef1a75d542ce0a2b6edb7b6529a3a53e
 $username = $email = "";
 $usernameErr = $emailErr = $passwordErr = $confirmPasswordErr = "";
 $successMsg = "";
 
-<<<<<<< HEAD
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-=======
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
->>>>>>> 65092830ef1a75d542ce0a2b6edb7b6529a3a53e
-    
+
     // Trim and sanitize inputs
     $username = sanitize_data($_POST["txt_username"]);
     $email = filter_var(trim($_POST["txt_email"]), FILTER_SANITIZE_EMAIL);
@@ -29,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usernameErr = "Username is required.";
     } elseif (!preg_match('/^[a-zA-Z0-9_ ]{3,45}$/', $username)) {
         $usernameErr = "Username must be 3-45 characters long and contain only letters, numbers, and underscores.";
-<<<<<<< HEAD
+
     }
 
     // Validate email
@@ -86,8 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $successMsg = "Database error: " . $e->getMessage();
             }
         }
-=======
->>>>>>> 65092830ef1a75d542ce0a2b6edb7b6529a3a53e
+
+
     }
 
     // Validate email
@@ -156,14 +149,6 @@ function sanitize_data($data) {
 
 }
 
-// function to sanitize user inputs
-function sanitize_data($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data); 
-  return $data;
-
-}
 ?>
 
 
