@@ -439,7 +439,13 @@ CREATE TABLE `reviews` (
 --
 -- Dumping data for table `reviews`
 --
-
+INSERT INTO `reviews` (`UserID`, `ProductID`, `Rating`, `Comment`, `CreatedAt`) VALUES
+(1001, 2009, 5, 'Excellent espresso! Strong and flavorful, just how I like it.', '2025-12-01 09:30:00'),
+(1002, 2012, 4, 'Very smooth cappuccino with great foam. Could be a bit hotter.', '2025-12-01 10:15:00'),
+(1003, 2004, 5, 'Absolutely delicious cheesecake, creamy and rich with perfect sweetness.', '2025-12-02 11:00:00'),
+(1004, 2023, 3, 'Iced Americano was refreshing but slightly too bitter for my taste.', '2025-12-02 14:20:00'),
+(1010, 2029, 4, 'Chocolate milkshake was thick and tasty, a bit too sweet but enjoyable.', '2025-12-03 16:45:00'),
+(1011, 2006, 5, 'Chocolate pancakes were amazing! Soft, fluffy, and full of flavor.', '2025-12-04 08:10:00');
 
 
 --
