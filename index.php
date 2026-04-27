@@ -3,6 +3,19 @@ session_start();
 $loginErr = $_SESSION['loginErr'] ?? '';
 $successMsg = $_SESSION['successMsg'] ?? '';
 unset($_SESSION['loginErr'], $_SESSION['successMsg']);
+
+$shopImages = [
+    ['src' => 'Images/Shop Interior 1.jpeg', 'alt' => 'Shop interior 1'],
+    ['src' => 'Images/Shop Interior 2.jpeg', 'alt' => 'Shop interior 2'],
+    ['src' => 'Images/Shop Interior 3.jpg', 'alt' => 'Shop interior 3'],
+];
+
+$socialLinks = [
+    ['platform' => 'Instagram', 'icon' => 'bi-instagram', 'handle' => '@RyanCofPas'],
+    ['platform' => 'Facebook', 'icon' => 'bi-facebook', 'handle' => '@RyanCofPas'],
+    ['platform' => 'Twitter', 'icon' => 'bi-twitter-x', 'handle' => '@RyanCofPas'],
+    ['platform' => 'TikTok', 'icon' => 'bi-tiktok', 'handle' => '@RyanCofPas'],
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +45,7 @@ unset($_SESSION['loginErr'], $_SESSION['successMsg']);
 
           <div class="hero-actions">
             <a class="btn primary" href="#order">Order Online.</a>
-            <a class="btn secondary" href="#shops">Find us.</a>
+            <a class="btn secondary" href="about.php">Find us.</a>
           </div>
         </div>
 
@@ -67,9 +80,9 @@ unset($_SESSION['loginErr'], $_SESSION['successMsg']);
       <p class="section-sub">We have various coffee shops across the globe each embodying a unique style and decor. All our shops have free wifi and we intend to provide our customers with utmost comfort.</p>
 
       <div class="shops-grid">
-        <img src="Images/Shop Interior 1.jpeg" alt="Shop interior 1">
-        <img src="Images/Shop Interior 2.jpeg" alt="Shop interior 2">
-        <img src="Images/Shop Interior 3.jpg" alt="Shop interior 3">
+        <?php foreach ($shopImages as $shopImage): ?>
+          <img src="<?= htmlspecialchars($shopImage['src']) ?>" alt="<?= htmlspecialchars($shopImage['alt']) ?>">
+        <?php endforeach; ?>
       </div>
     </section>
 
@@ -118,25 +131,12 @@ unset($_SESSION['loginErr'], $_SESSION['successMsg']);
           <h4>Find us on:</h4>
 
           <div class="social-grid">
-            <a class="social" href="#" aria-label="Instagram">
-              <i class="bi bi-instagram" aria-hidden="true"></i>
-              <span>@RyanCofPas</span>
-            </a>
-
-            <a class="social" href="#" aria-label="Facebook">
-              <i class="bi bi-facebook" aria-hidden="true"></i>
-              <span>@RyanCofPas</span>
-            </a>
-
-            <a class="social" href="#" aria-label="Twitter">
-              <i class="bi bi-twitter-x" aria-hidden="true"></i>
-              <span>@RyanCofPas</span>
-            </a>
-
-            <a class="social" href="#" aria-label="TikTok">
-              <i class="bi bi-tiktok" aria-hidden="true"></i>
-              <span>@RyanCofPas</span>
-            </a>
+            <?php foreach ($socialLinks as $social): ?>
+              <a class="social" href="#" aria-label="<?= htmlspecialchars($social['platform']) ?>">
+                <i class="bi <?= htmlspecialchars($social['icon']) ?>" aria-hidden="true"></i>
+                <span><?= htmlspecialchars($social['handle']) ?></span>
+              </a>
+            <?php endforeach; ?>
           </div>
         </aside>
       </div>
@@ -147,7 +147,7 @@ unset($_SESSION['loginErr'], $_SESSION['successMsg']);
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-links">PRIVACY POLICY | TERMS OF USE | YOUR PRIVACY RIGHTS | CHILDREN'S PRIVACY POLICY | INTEREST BASED ADS | DO NOT SELL MY INFO</p>
-      <p class="copyright">© 2004-2025 | Kasseeah Nirvisesh</p>
+      <p class="copyright">ï¿½ 2004-2025 | Kasseeah Nirvisesh</p>
     </div>
   </footer>
 </body>
