@@ -58,3 +58,7 @@ class Product extends Model
         return $this->hasOne(Milkshake::class, 'ProductID', 'ProductID');
     }
 }
+//This model defines a Product with ProductID primary key, no timestamps, fillable attributes (Name, Description, Price, Points),
+//and relationships: reviews (one-to-many), orders (many-to-many via ordercontains with Quantity/TotalPrice), plus category-specific
+//one-to-one relationships with Drink, Dessert, Coffee, and Milkshake models.
+
