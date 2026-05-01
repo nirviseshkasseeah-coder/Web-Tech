@@ -1,0 +1,293 @@
+:root {
+  --bg-main: #d8d8d8;
+  --bg-cream: #d7be93;
+  --line: #0d8ff2;
+  --text: #101010;
+  --muted: #7a7a7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  color: var(--text);
+  background: var(--bg-main);
+}
+
+.container {
+  width: min(1200px, 91%);
+  margin: 0 auto;
+}
+
+.topbar {
+  min-height: 94px;
+  padding: 10px 22px;
+  border-bottom: none;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none;
+  background: var(--bg-cream);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+header {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-wrap img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand-wrap p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.top-actions {
+  display: flex;
+  gap: 22px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 82px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+.main-wrap {
+  padding: 58px 0 72px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(250px, 430px);
+  gap: 56px;
+  align-items: start;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(46px, 5vw, 56px);
+  line-height: 1;
+}
+
+.quote {
+  margin: 0 0 26px;
+  color: var(--muted);
+  font-size: 25px;
+  font-family: 'Jacques Francois', serif;
+}
+
+article p {
+  margin: 0 0 8px;
+  max-width: 650px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.signature {
+  margin-top: 18px;
+  font-size: 21px;
+}
+
+.media-col img {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.media-col p {
+  margin: 12px 0 0;
+  font-size: 22px;
+  line-height: 1.35;
+  font-family: 'Jacques Francois', serif;
+}
+
+.contact-block {
+  margin-top: 68px;
+}
+
+.contact-block h2 {
+  margin: 0 0 18px;
+  font-size: 42px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.contact-form span {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.name-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid #cbcbcb;
+  border-radius: 5px;
+  background: #efefef;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.contact-form textarea {
+  min-height: 138px;
+  resize: vertical;
+}
+
+.submit-btn {
+  border: none;
+  width: 100%;
+  border-radius: 5px;
+  background: #000;
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.site-footer {
+  background: var(--bg-cream);
+  border-top: 1px solid #c6af85;
+  padding: 22px 0;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.footer-inner h4 {
+  margin: 0 0 26px;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.footer-inner h5 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.footer-inner a {
+  color: #222;
+  text-decoration: none;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.socials {
+  display: flex;
+  gap: 15px;
+}
+
+.socials a {
+  color: #757575;
+  font-size: 13px;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 18px;
+  }
+
+  .top-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .media-col {
+    max-width: 560px;
+  }
+
+  .media-col p {
+    font-size: 20px;
+  }
+
+  .footer-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .brand-wrap p {
+    font-size: 16px;
+  }
+
+  .quote {
+    font-size: 20px;
+  }
+
+  article p,
+  .signature {
+    font-size: 16px;
+  }
+
+  .contact-block h2 {
+    font-size: 32px;
+  }
+
+  .name-row {
+    grid-template-columns: 1fr;
+  }
+
+  .media-col p {
+    font-size: 18px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner h4 {
+    font-size: 26px;
+  }
+}
