@@ -12,3 +12,6 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('products
 Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+
+//This code defines all CRUD routes for a Product controller: listing, creating, storing, showing, editing, updating, and deleting products — plus a redirect from / to /products.
