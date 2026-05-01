@@ -36,3 +36,5 @@ class ReviewController extends Controller
         ], 201);
     }
 }
+//This controller handles authenticated review submissions: it validates the request (ProductID exists, rating 1-5, comment 5-500 chars),
+//Creates a review linked to the authenticated user and product, loads the related product/user data, and returns the created review with a 201 status.
