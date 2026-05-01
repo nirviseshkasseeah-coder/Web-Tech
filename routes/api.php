@@ -16,5 +16,5 @@ Route::middleware('api.token')->group(function () {
     Route::post('/reviews', [ReviewController::class, 'store']);
 });
 // This code defines API routes for authentication (login/register),
-//a protected product listing and detail view, and a protected review submission endpoint — 
-//all requiring a valid api.token middleware except the public auth endpoints.
+// A protected product listing and detail view, and a protected review submission endpoint — 
+// All requiring a valid api.token middleware except the public auth endpoints.
