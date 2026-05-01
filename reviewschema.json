@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Review Validation Schema",
+  "description": "Validates review data submitted by users",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "integer",
+      "minimum": 2001,
+      "maximum": 9999,
+      "description": "Product ID must be between 2001-9999"
+    },
+    "rating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Rating must be between 1-5 stars"
+    },
+    "comment": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 500,
+      "description": "Review comment must be 5-500 characters"
+    }
+  },
+  "required": ["product_id", "rating", "comment"],
+  "additionalProperties": false,
+  "errorMessage": {
+    "required": {
+      "product_id": "Product ID is required",
+      "rating": "Please provide a rating (1-5 stars)",
+      "comment": "Please write your review comment"
+    },
+    "properties": {
+      "product_id": "Invalid product ID",
+      "rating": "Rating must be between 1 and 5 stars",
+      "comment": "Comment must be between 5 and 500 characters"
+    }
+  }
+}
