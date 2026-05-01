@@ -90,3 +90,9 @@ class AuthController extends Controller
         ];
     }
 }
+
+// this AuthController handles API authentication: login() validates credentials and issues a 7-day token, 
+// register() creates a new user with hashed password and returns a token, 
+// user() returns the authenticated user's info, and private helpers 
+// issueToken() stores SHA-256 hashed tokens in api_tokens table while returning the plain token, and 
+// formatUser() standardizes user output.
