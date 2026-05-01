@@ -29,3 +29,5 @@ class ApiToken extends Model
         return $this->belongsTo(User::class, 'UserID', 'UserID');
     }
 }
+// This model represents API authentication tokens stored in the api_tokens table with TokenID as primary key, no timestamps, fillable fields for user/token/expiry, casts for datetime fields, 
+// And a belongs-to relationship back to the User model.
