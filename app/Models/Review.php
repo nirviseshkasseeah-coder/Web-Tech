@@ -33,3 +33,5 @@ class Review extends Model
         return $this->belongsTo(User::class, 'UserID', 'UserID');
     }
 }
+//This model defines a Review with ReviewID primary key, no timestamps, fillable fields (UserID, ProductID, Rating, Comment),
+//casts CreatedAt as datetime, and belongs-to relationships with both Product and User.
