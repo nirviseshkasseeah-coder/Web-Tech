@@ -86,3 +86,5 @@ class ProductController extends Controller
             ->with('status', "Product {$deletedName} deleted successfully.");
     }
 }
+//This controller provides full web CRUD operations for products: paginated listing (12 per page) with reviews eager-loaded,
+//create form, validated store, detailed view with reviews/orders/commenters, edit form, validated update, and delete — all returning redirects with status messages.
