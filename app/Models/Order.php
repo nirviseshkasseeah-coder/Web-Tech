@@ -26,3 +26,5 @@ class Order extends Model
             ->withPivot('Quantity', 'TotalPrice');
     }
 }
+//This model defines an **Order** with a many-to-many relationship to `Product` via the `ordercontains` pivot table
+//(including Quantity/TotalPrice), using `OrderID` as primary key and no timestamps.
