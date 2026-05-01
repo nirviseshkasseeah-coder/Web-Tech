@@ -26,3 +26,5 @@ class ProductController extends Controller
         return response()->json($product);
     }
 }
+//This controller provides **two read-only API endpoints**: `index()` returns paginated products (10 per page)
+//with review counts ordered by name, while `show()` returns a single product with its related reviews (including user data) and orders — throwing a 404 if not found.
