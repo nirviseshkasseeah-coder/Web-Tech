@@ -44,7 +44,7 @@ $socialLinks = [
           <p class="hero-sub">Your friendly neighbourhood coffee shop where each cup tells a different story.</p>
 
           <div class="hero-actions">
-            <a class="btn primary" href="#order">Order Online.</a>
+            <a class="btn primary" href="dessert.php">Order Online.</a>
             <a class="btn secondary" href="about.php">Find us.</a>
           </div>
         </div>
@@ -90,41 +90,49 @@ $socialLinks = [
     <section id="contact" class="section account container">
       <div class="account-grid">
         <aside class="login-card card">
-          <h4>Welcome Back</h4><br>
-
-          <!-- php to retrieve error or success message from login.php and display them -->
-          <div class="login-messages">
-              <?php if (!empty($loginErr)): ?>
-                  <p class="error"><?= htmlspecialchars($loginErr) ?></p>
-              <?php elseif (!empty($successMsg)): ?>
-                  <p class="success"><?= htmlspecialchars($successMsg) ?></p>
-              <?php endif; ?>
-          </div>
-
-          <form class="login-form" action="login.php" method="post" autocomplete="on">
-            <label>
-              <span class="label-text">Email</span>
-              <input type="email" name="txt_email" placeholder="Enter your email" required>
-            </label>
-
-            <label>
-              <span class="label-text">Password</span>
-              <input type="password" name="txt_password" placeholder="Enter your password" title="Password must be 8-255 chars, include at least 1 uppercase, 1 lowercase, 1 number, and 1 special char." required>
-            </label>
-
-            <div class="form-row">
-              <label class="checkbox">
-                <input type="checkbox" name="remember">
-                <span>Remember me</span>
-              </label>
-              <a class="forgot" href="#">Forgot password?</a>
-            </div>
-
+          <?php if (isset($_SESSION['user_id'])): ?>
+            <h4>Welcome back, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h4>
+            <p>You are currently logged in.</p>
             <div class="form-actions">
-              <button class="btn primary full" type="submit">Login</button>
-              <a class="btn secondary full" href="#signup">Sign Up</a>
+              <a class="btn primary full" href="logout.php">Logout</a>
             </div>
-          </form>
+          <?php else: ?>
+            <h4>Welcome Back</h4><br>
+
+            <!-- php to retrieve error or success message from login.php and display them -->
+            <div class="login-messages">
+                <?php if (!empty($loginErr)): ?>
+                    <p class="error"><?= htmlspecialchars($loginErr) ?></p>
+                <?php elseif (!empty($successMsg)): ?>
+                    <p class="success"><?= htmlspecialchars($successMsg) ?></p>
+                <?php endif; ?>
+            </div>
+
+            <form class="login-form" action="login.php" method="post" autocomplete="on">
+              <label>
+                <span class="label-text">Email</span>
+                <input type="email" name="txt_email" placeholder="Enter your email" required>
+              </label>
+
+              <label>
+                <span class="label-text">Password</span>
+                <input type="password" name="txt_password" placeholder="Enter your password" title="Password must be 8-255 chars, include at least 1 uppercase, 1 lowercase, 1 number, and 1 special char." required>
+              </label>
+
+              <div class="form-row">
+                <label class="checkbox">
+                  <input type="checkbox" name="remember">
+                  <span>Remember me</span>
+                </label>
+                <a class="forgot" href="#">Forgot password?</a>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary full" type="submit">Login</button>
+                <a class="btn secondary full" href="#signup">Sign Up</a>
+              </div>
+            </form>
+          <?php endif; ?>
         </aside>
 
         <aside class="socials card">
