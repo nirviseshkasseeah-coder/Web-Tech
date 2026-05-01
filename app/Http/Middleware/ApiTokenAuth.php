@@ -44,3 +44,7 @@ class ApiTokenAuth
         return $next($request);
     }
 }
+
+// This middleware validates API bearer tokens: extracts the token from the Authorization header, hashes it with SHA-256, 
+// Looks up the matching ApiToken record with its related user, checks expiration, and attaches the user to the request before proceeding — 
+// Returning 401 for missing, invalid, or expired tokens.
