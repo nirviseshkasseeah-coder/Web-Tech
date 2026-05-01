@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             } else {
                 $_SESSION['loginErr'] = "Invalid email or password."; 
-            }     
+            }
             
             //if 3 or more failed attempts occurs. lock account for 3 minsredirect to same page, for testing purposes. Otherwise show normal error message
             header("Location: index.php#contact"); 
@@ -99,6 +99,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['user_id'] = $user['UserID'];
             $_SESSION['role'] = 'user';
             $_SESSION['successMsg'] = "Login successful!";
+
+            // Store username in session
+            $user_stmt = $db->prepare("SELECT Username FROM users WHERE UserID = ?");
+            $user_stmt->execute([$user['UserID']]);
+            $user_data = $user_stmt->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['username'] = $user_data['Username'];
 
             // Reset lockout tracking. Reset failed login attempts and lockout time after successful login.
             $_SESSION['login_attempts'] = 0; 
