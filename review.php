@@ -1,44 +1,6 @@
 <?php
-$product = [
-    'name' => 'Tiramisu Cake',
-    'description' => "This tantalizing tiramisu cake is a slice of the classic Italian dessert, beautifully presented. The cake features layers of creamy mascarpone cheese, chocolate sponge cake, and subtle coffee flavor, all dusted with cocoa powder.",
-    'image' => 'Images/Tiramisu Cake.jpeg'
-];
-
-$reviews = [
-    [
-        'name' => 'Bob Smith',
-        'rating' => 5,
-        'date' => '11/Sept/25',
-        'text' => 'Definitely a great place to have a wonderful cup of coffee and pastry :).',
-        'tone' => 'tone-one',
-        'image' => 'Images/BobSmith.jpeg'
-    ],
-    [
-        'name' => 'The Artist',
-        'rating' => 4,
-        'date' => '25/Jul/25',
-        'text' => 'This dessert is one of the best dessert I have ever tasted!!! So rich, creamy, and heavenly.Wowww. The layers were so moist and flavorful. das essen war einfach köstlich.',
-        'tone' => 'tone-two',
-        'image' => 'Images/theArtist.jpeg'
-    ],
-    [
-        'name' => 'Alice Johnson',
-        'rating' => 4,
-        'date' => '04/May/25',
-        'text' => 'The Tiramisu was good but a bit too sweet for my taste. I would prefer a less sugary version.',
-        'tone' => 'tone-three',
-        'image' => 'Images/Alice Johnson.jpeg'
-    ],
-    [
-        'name' => 'TheFakeGordon',
-        'rating' => 2,
-        'date' => '31/Feb/25',
-        'text' => "That was an enjoyable dessert but i wish that the mascarpone layer was a bit thicker. My grandma can do better! And she's dead!",
-        'tone' => 'tone-four',
-        'image' => 'Images/ThefakeGordon.jpeg'
-    ]
-];
+session_start();
+$productId = isset($_GET['id']) ? (int)$_GET['id'] : 2005;
 
 $socialLinks = [
     ['label' => 'Facebook', 'icon' => 'bi-facebook'],
@@ -48,18 +10,6 @@ $socialLinks = [
 ];
 
 $footerTopics = ['Topic', 'Topic', 'Topic'];
-
-function initials(string $name): string
-{
-    $parts = preg_split('/\s+/', trim($name));
-    if (!$parts) {
-        return 'U';
-    }
-
-    $first = strtoupper(substr($parts[0], 0, 1));
-    $last = count($parts) > 1 ? strtoupper(substr($parts[count($parts) - 1], 0, 1)) : '';
-    return $first . $last;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,49 +29,35 @@ function initials(string $name): string
 
     <nav class="top-actions" aria-label="Quick actions">
       <a class="btn btn-dark" href="index.php">BACK</a>
-      <button type="button" class="btn btn-light">Logged in</button>
-      <button type="button" class="btn btn-dark wide">Nakul Kumar Singh Baboolall</button>
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <button type="button" class="btn btn-light">Logged in</button>
+        <button type="button" class="btn btn-dark wide"><?php echo htmlspecialchars($_SESSION['username']); ?></button>
+      <?php else: ?>
+        <button type="button" class="btn btn-light">NOT LOGGED IN</button>
+        <a href="index.php#contact" class="btn btn-dark wide">LOGIN</a>
+      <?php endif; ?>
     </nav>
   </header>
 
   <main>
     <section class="hero container">
       <div class="hero-image">
-        <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+        <img id="productImage" src="" alt="Product image">
       </div>
 
       <div class="hero-content">
-        <h1><?php echo htmlspecialchars($product['name']); ?></h1>
-        <p><?php echo htmlspecialchars($product['description']); ?></p>
-        <a class="btn btn-dark full" href="ProductDetail.php">See pricing</a>
+        <h1 id="productName">Loading...</h1>
+        <p id="productDesc"></p>
+        <a class="btn btn-dark full" href="ProductDetail.php?id=<?= $productId ?>">See pricing</a>
       </div>
     </section>
 
     <section class="reviews container">
-      <h2>Reviews</h2>
-
-      <div class="reviews-scroll" aria-label="Customer reviews">
-        <?php foreach ($reviews as $review): ?>
-          <article class="review-item">
-            <div class="avatar <?php echo htmlspecialchars($review['tone']); ?>" aria-hidden="true">
-              <?php if (!empty($review['image'])): ?>
-                <img src="<?php echo htmlspecialchars($review['image']); ?>" alt="<?php echo htmlspecialchars($review['name']); ?>">
-              <?php else: ?>
-                <?php echo htmlspecialchars(initials($review['name'])); ?>
-              <?php endif; ?>
-            </div>
-
-            <div class="review-main">
-              <div class="review-head">
-                <strong><?php echo htmlspecialchars($review['name']); ?></strong>
-                <span class="stars"><?php echo str_repeat('?', (int)$review['rating']) . str_repeat('?', 5 - (int)$review['rating']); ?></span>
-              </div>
-              <p>"<?php echo htmlspecialchars($review['text']); ?>"</p>
-            </div>
-
-            <span class="review-date"><?php echo htmlspecialchars($review['date']); ?></span>
-          </article>
-        <?php endforeach; ?>
+      <h2>Reviews (<span id="reviewCount">0</span>)</h2>
+      <!-- ADDED: rating-summary div -->
+      <div class="rating-summary" style="margin-bottom: 20px;"></div>
+      <div class="reviews-scroll" id="reviewsList">
+        <p>Loading reviews...</p>
       </div>
     </section>
   </main>
@@ -147,5 +83,28 @@ function initials(string $name): string
       <?php endforeach; ?>
     </div>
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="review.js"></script>
+  
+  <!-- ADDED: Product info loader -->
+  <script>
+  $(document).ready(function() {
+      const productId = '<?= $productId ?>';
+      
+      $.ajax({
+          url: 'api/get_product.php',
+          type: 'GET',
+          data: { id: productId },
+          success: function(response) {
+              if (response.success) {
+                  $('#productName').text(response.data.Name);
+                  $('#productDesc').text(response.data.Description);
+                  $('#productImage').attr('src', response.data.Image);
+              }
+          }
+      });
+  });
+  </script>
 </body>
 </html>
