@@ -1,21 +1,28 @@
 <?php
 session_start();
-require_once 'db.php';
 
 $email = $password = "";
 $emailErr = $passwordErr = "";
 
 //initializing lockout tracking
-if (!isset($_SESSION['login_attempts'])) { 
+if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0; 
 }
-if (!isset($_SESSION['lockout_time'])) { 
-    $_SESSION['lockout_time'] = 0; 
+if (!isset($_SESSION['lockout_time'])) {
+    $_SESSION['lockout_time'] = 0;
 }
 
 // Clear previous session messages
 unset($_SESSION['loginErr']);
 unset($_SESSION['successMsg']);
+
+try {
+    require_once 'db.php';
+} catch (Throwable $e) {
+    $_SESSION['loginErr'] = $e->getMessage();
+    header("Location: index.php#contact");
+    exit;
+}
 
 //check if the user trying to login is curently locked out
 if (time() < $_SESSION['lockout_time']) {
@@ -48,15 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // If validation errors exist, save in session and redirect (to same page for testing purposes)
     if (!empty($emailErr) || !empty($passwordErr)) {
         $_SESSION['loginErr'] = $emailErr . " " . $passwordErr;
-        header("Location: index.php");
+        header("Location: index.php#contact");
         exit;
     }
 
     // If no validation errors, check user in database (Users and RegisteredUsers tables)
     try {
         $sql_login_check = "SELECT u.UserID, u.Password 
-                            FROM Users u 
-                            INNER JOIN RegisteredUsers r ON u.UserID = r.UserID 
+                            FROM users u 
+                            INNER JOIN registeredusers r ON u.UserID = r.UserID 
                             WHERE u.Email = :email";
 
         $stmt = $db->prepare($sql_login_check);
@@ -80,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             } else {
                 $_SESSION['loginErr'] = "Invalid email or password."; 
-            }     
+            }
             
             //if 3 or more failed attempts occurs. lock account for 3 minsredirect to same page, for testing purposes. Otherwise show normal error message
             header("Location: index.php#contact"); 
@@ -93,6 +100,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['role'] = 'user';
             $_SESSION['successMsg'] = "Login successful!";
 
+            // Store username in session
+            $user_stmt = $db->prepare("SELECT Username FROM users WHERE UserID = ?");
+            $user_stmt->execute([$user['UserID']]);
+            $user_data = $user_stmt->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['username'] = $user_data['Username'];
+
             // Reset lockout tracking. Reset failed login attempts and lockout time after successful login.
             $_SESSION['login_attempts'] = 0; 
             $_SESSION['lockout_time'] = 0; 
@@ -104,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } catch (PDOException $e) {
         $_SESSION['loginErr'] = "Database error: " . $e->getMessage();
-        header("Location: index.php");
+        header("Location: index.php#contact");
         exit;
     }
 }
