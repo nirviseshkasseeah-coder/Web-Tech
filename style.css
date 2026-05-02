@@ -111,41 +111,60 @@ body{
 
 /* HERO */
 .hero{
-  padding:48px 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.05), transparent);
+  position: relative;
+  min-height: 78vh;
+  padding: 0;
+  overflow: hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.35);
+  z-index:1;
 }
 .hero-grid{
-  display:grid;
-  grid-template-columns: 1fr 460px;
-  gap:32px;
-  align-items:center;
+  z-index: 2;
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .hero-quote{
   font-family:"Jacques Francois", serif;
   font-size:40px;
   line-height:1.05;
   margin:0 0 8px;
-  color:var(--dark);
+  color:#fff;
 }
 .hero-author{
   margin:0 0 18px;
-  color:var(--muted);
+  color:rgba(255,255,255,0.9);
   font-weight:500;
 }
 .hero-sub{
   font-size:20px;
   margin-bottom:22px;
-  color:rgba(0,0,0,0.85);
+  color:rgba(255,255,255,0.95);
   max-width:600px;
 }
 .hero-actions{display:flex; gap:16px; flex-wrap:wrap}
-.hero-media{ justify-self:end; }
+.hero-text{
+  position: relative;
+  z-index: 2;
+}
+.hero-media{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
 .hero-img{
   width:100%;
-  height: auto;
-  border-radius:18px;
+  height: 100%;
+  border-radius:0;
   object-fit:cover;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+  box-shadow:none;
 }
 
 /* SECTION / STORY */
@@ -227,9 +246,36 @@ body{
 .form-actions{ display:flex; gap:12px; margin-top:10px; }
 
 /* Socials */
-.social-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:12px; align-items:center; }
-.social{ display:flex; gap:10px; align-items:center; text-decoration:none; color:var(--primary); font-weight:500; }
-.social img{ width:42px; height:42px; object-fit:cover; }
+.socials{
+  background:#d9bc96;
+}
+.socials h4{
+  margin-bottom:18px;
+  text-align:center;
+  color:#8a6038;
+  font-size:34px;
+}
+.social-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:14px 18px; align-items:center; }
+.social{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:120px;
+  padding:6px;
+  text-decoration:none;
+  color:#8a6038;
+}
+.social i{
+  font-size:72px;
+  line-height:1;
+  margin-bottom:8px;
+}
+.social span{
+  font-family:"Jacques Francois", serif;
+  font-size:18px;
+  line-height:1;
+}
 
 /* TESTIMONIALS */
 .testimonials-grid{
@@ -251,12 +297,12 @@ body{
 }
 .footer-inner{ display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center; }
 .footer-links{ font-family:"Jacques Francois", serif; margin:0; font-size:14px; opacity:0.95; }
-
+copyright{}
 
 /* Responsive */
 @media (max-width: 980px){
   :root{ --max-width: 920px; }
-  .hero-grid{ grid-template-columns: 1fr; }
+  .hero-grid{ min-height: 70vh; }
   .story-inner{ flex-direction:column; align-items:flex-start; }
   .story-text{ max-width:100% }
   .shops-grid{ grid-template-columns: repeat(2,1fr); }
@@ -274,993 +320,4 @@ body{
   .shops-grid{ grid-template-columns: 1fr; }
   .hero-sub{ font-size:18px; }
   .header-inner{ padding:12px 0; }
-}
-
-
-/*CSS for email-sent-page.html*/
-/* ===== EMAIL SENT PAGE STYLES ===== */
-
-
-/* ===== EMAIL PAGE - COMPLETE STYLES ===== */
-html, body.email-page {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body.email-page {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    font-family: "Jacques Francois", serif;
-}
-
-.email-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 16px;
-}
-
-body.email-page .container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
-
-/* Card styling */
-body.email-page .card {
-    max-width: 550px;
-    margin: 0 auto;
-    text-align: center;
-    background: #cbb89d;
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    box-shadow: 0 12px 10px -10px rgba(0, 0, 0, 0.25);
-}
-
-/* Jacques Francois font for all card text */
-body.email-page .card h1,
-body.email-page .card .subheading,
-body.email-page .card .message,
-body.email-page .card .btn.proceed-btn {
-    font-family: "Jacques Francois", serif;
-}
-
-body.email-page .card h1 {
-    font-size: 36px;
-    margin: 0 0 8px;
-    color: var(--primary);
-}
-
-body.email-page .card .subheading {
-    font-size: 18px;
-    font-weight: 600;
-    color: #4a2c1a;   /* darker brown */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-}
-
-body.email-page .card .message {
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--muted);
-    margin-bottom: 30px;
-}
-
-/* Proceed button - pop out effect */
-body.email-page .btn.proceed-btn {
-    background: linear-gradient(135deg, var(--primary) 0%, #8B5A2B 100%);
-    color: #fff;
-    border: none;
-    padding: 14px 36px;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 0 #3e2a1f, 0 4px 12px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
-}
-
-body.email-page .btn.proceed-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #3e2a1f, 0 6px 16px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(135deg, #7a5338 0%, #9b6a3e 100%);
-}
-
-body.email-page .btn.proceed-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #3e2a1f, 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer - full width, fixed at bottom */
-body.email-page .footer {
-    background: var(--primary);
-    color: #fff;
-    padding: 28px 0;
-    width: 100%;
-    margin-top: 0;
-}
-
-body.email-page .footer-inner {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: center;
-}
-
-body.email-page .footer-links {
-    font-family: "Jacques Francois", serif;
-    margin-bottom: 12px;
-    font-size: 14px;
-    opacity: 0.95;
-}
-
-body.email-page .footer-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 4px;
-}
-
-body.email-page .footer-links a:hover {
-    text-decoration: underline;
-}
-
-body.email-page .copyright {
-    font-size: 12px;
-    opacity: 0.8;
-    font-family: "Jacques Francois", serif;
-}
-
-/* Responsive adjustments */
-@media (max-width: 560px) {
-    body.email-page .card {
-        padding: 30px 20px;
-    }
-    body.email-page .card h1 {
-        font-size: 28px;
-    }
-    body.email-page .footer-links {
-        font-size: 11px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    body.email-page .btn.proceed-btn {
-        padding: 10px 28px;
-        font-size: 16px;
-    }
-}
-
-/* ===== PASSWORD RESET PAGE - SAME STYLE AS EMAIL PAGE ===== */
-html, body.reset-page {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body.reset-page {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    font-family: "Jacques Francois", serif;
-}
-
-.reset-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 16px;
-}
-
-body.reset-page .container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
-
-body.reset-page .card {
-    max-width: 550px;
-    margin: 0 auto;
-    text-align: center;
-    background: #cbb89d;
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    box-shadow: 0 12px 10px -10px rgba(0, 0, 0, 0.25);
-}
-
-body.reset-page .card h1 {
-    font-family: "Jacques Francois", serif;
-    font-size: 32px;
-    margin: 0 0 8px;
-    color: var(--primary);
-}
-
-body.reset-page .card .subheading {
-    font-family: "Jacques Francois", serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #4a2c1a;   /* darker brown */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 30px;
-}
-
-/* Form styles */
-.reset-form {
-    text-align: left;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-family: "Jacques Francois", serif;
-    font-size: 16px;
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background: #fff;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.2);
-}
-
-/* Reset button - same pop-out effect */
-body.reset-page .btn.reset-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary) 0%, #8B5A2B 100%);
-    color: #fff;
-    border: none;
-    padding: 14px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: "Jacques Francois", serif;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 0 #3e2a1f, 0 4px 12px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
-    margin-top: 10px;
-}
-
-body.reset-page .btn.reset-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #3e2a1f, 0 6px 16px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(135deg, #7a5338 0%, #9b6a3e 100%);
-}
-
-body.reset-page .btn.reset-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #3e2a1f, 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer (already styled from email page, but ensure consistency) */
-body.reset-page .footer {
-    background: var(--primary);
-    color: #fff;
-    padding: 28px 0;
-    width: 100%;
-    margin-top: 0;
-}
-
-body.reset-page .footer-inner {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: center;
-}
-
-body.reset-page .footer-links {
-    font-family: "Jacques Francois", serif;
-    margin-bottom: 12px;
-    font-size: 14px;
-    opacity: 0.95;
-}
-
-body.reset-page .footer-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 4px;
-}
-
-body.reset-page .footer-links a:hover {
-    text-decoration: underline;
-}
-
-body.reset-page .copyright {
-    font-size: 12px;
-    opacity: 0.8;
-    font-family: "Jacques Francois", serif;
-}
-
-/* Responsive */
-@media (max-width: 560px) {
-    body.reset-page .card {
-        padding: 30px 20px;
-    }
-    body.reset-page .card h1 {
-        font-size: 28px;
-    }
-    body.reset-page .footer-links {
-        font-size: 11px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    body.reset-page .btn.reset-btn {
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-}
-
-/* ===== PASSWORD SUCCESS PAGE - SAME STYLE ===== */
-html, body.success-page {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body.success-page {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    font-family: "Jacques Francois", serif;
-}
-
-.success-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 16px;
-}
-
-body.success-page .container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
-
-body.success-page .card {
-    max-width: 550px;
-    margin: 0 auto;
-    text-align: center;
-    background: #cbb89d;
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    box-shadow: 0 12px 10px -10px rgba(0, 0, 0, 0.25);
-}
-
-body.success-page .card h1 {
-    font-family: "Jacques Francois", serif;
-    font-size: 32px;
-    margin: 0 0 8px;
-    color: var(--primary);
-}
-
-body.success-page .card .subheading {
-    font-family: "Jacques Francois", serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #4a2c1a;   /* darker brown */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-}
-
-body.success-page .card .message {
-    font-family: "Jacques Francois", serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: var(--muted);
-    margin-bottom: 30px;
-}
-
-/* Home button - same pop-out effect */
-body.success-page .btn.home-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--primary) 0%, #8B5A2B 100%);
-    color: #fff;
-    border: none;
-    padding: 14px 36px;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: "Jacques Francois", serif;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 0 #3e2a1f, 0 4px 12px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
-    text-decoration: none;
-}
-
-body.success-page .btn.home-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #3e2a1f, 0 6px 16px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(135deg, #7a5338 0%, #9b6a3e 100%);
-}
-
-body.success-page .btn.home-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #3e2a1f, 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer - consistent with other pages */
-body.success-page .footer {
-    background: var(--primary);
-    color: #fff;
-    padding: 28px 0;
-    width: 100%;
-    margin-top: 0;
-}
-
-body.success-page .footer-inner {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: center;
-}
-
-body.success-page .footer-links {
-    font-family: "Jacques Francois", serif;
-    margin-bottom: 12px;
-    font-size: 14px;
-    opacity: 0.95;
-}
-
-body.success-page .footer-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 4px;
-}
-
-body.success-page .footer-links a:hover {
-    text-decoration: underline;
-}
-
-body.success-page .copyright {
-    font-size: 12px;
-    opacity: 0.8;
-    font-family: "Jacques Francois", serif;
-}
-
-/* Responsive */
-@media (max-width: 560px) {
-    body.success-page .card {
-        padding: 30px 20px;
-    }
-    body.success-page .card h1 {
-        font-size: 28px;
-    }
-    body.success-page .footer-links {
-        font-size: 11px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    body.success-page .btn.home-btn {
-        padding: 10px 28px;
-        font-size: 16px;
-    }
-}
-
-/* ===== ADMIN LOGIN PAGE WITH TOP BANNER ===== */
-html, body.admin-login-page {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body.admin-login-page {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    font-family: "Jacques Francois", serif;
-}
-
-/* Top banner */
-.admin-top-banner {
-    background: #e1c699;  /* colored banner as in screenshot */
-    padding: 12px 0;
-    width: 100%;
-}
-
-.banner-container {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: right;
-}
-
-.view-website-btn {
-    display: inline-block;
-    background: var(--primary);
-    color: #fff;
-    font-family: "Jacques Francois", serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 8px 20px;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.view-website-btn:hover {
-    background: #5a3e2c;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* Main content */
-.admin-login-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 16px;
-}
-
-body.admin-login-page .container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
-
-body.admin-login-page .card {
-    max-width: 450px;
-    margin: 0 auto;
-    text-align: center;
-    background: #cbb89d;
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    box-shadow: 0 12px 10px -10px rgba(0, 0, 0, 0.25);
-}
-
-/* Form styles */
-.admin-login-form {
-    text-align: left;
-}
-
-.admin-login-form .form-group {
-    margin-bottom: 20px;
-}
-
-.admin-login-form .form-group label {
-    display: block;
-    font-family: "Jacques Francois", serif;
-    font-size: 16px;
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.admin-login-form .form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background: #fff;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-.admin-login-form .form-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.2);
-}
-
-.forgot-password {
-    text-align: right;
-    margin-bottom: 25px;
-}
-
-.forgot-password a {
-    font-family: "Jacques Francois", serif;
-    font-size: 14px;
-    color: var(--primary);
-    text-decoration: none;
-}
-
-.forgot-password a:hover {
-    text-decoration: underline;
-}
-
-/* Login button - pop-out effect */
-body.admin-login-page .btn.login-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary) 0%, #8B5A2B 100%);
-    color: #fff;
-    border: none;
-    padding: 14px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: "Jacques Francois", serif;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 0 #3e2a1f, 0 4px 12px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
-}
-
-body.admin-login-page .btn.login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #3e2a1f, 0 6px 16px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(135deg, #7a5338 0%, #9b6a3e 100%);
-}
-
-body.admin-login-page .btn.login-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #3e2a1f, 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer - consistent */
-body.admin-login-page .footer {
-    background: var(--primary);
-    color: #fff;
-    padding: 28px 0;
-    width: 100%;
-    margin-top: 0;
-}
-
-body.admin-login-page .footer-inner {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: center;
-}
-
-body.admin-login-page .footer-links {
-    font-family: "Jacques Francois", serif;
-    margin-bottom: 12px;
-    font-size: 14px;
-    opacity: 0.95;
-}
-
-body.admin-login-page .footer-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 4px;
-}
-
-body.admin-login-page .footer-links a:hover {
-    text-decoration: underline;
-}
-
-body.admin-login-page .copyright {
-    font-size: 12px;
-    opacity: 0.8;
-    font-family: "Jacques Francois", serif;
-}
-
-/* Responsive */
-@media (max-width: 560px) {
-    body.admin-login-page .card {
-        padding: 30px 20px;
-    }
-    body.admin-login-page .footer-links {
-        font-size: 11px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    body.admin-login-page .btn.login-btn {
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-    .view-website-btn {
-        padding: 6px 16px;
-        font-size: 12px;
-    }
-    .forgot-password a {
-        font-size: 12px;
-    }
-}
-
-/* ===== ADMIN LOGIN PAGE WITH TOP BANNER (button right) ===== */
-html, body.admin-login-page {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body.admin-login-page {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    font-family: "Jacques Francois", serif;
-}
-
-/* Top banner */
-.admin-top-banner {
-    background: #e1c699;
-    padding: 12px 0;
-    width: 100%;
-}
-
-.banner-container {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: right;
-}
-
-.view-website-btn {
-    display: inline-block;
-    background: var(--primary);
-    color: #fff;
-    font-family: "Jacques Francois", serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 8px 20px;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.view-website-btn:hover {
-    background: #5a3e2c;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* Main content */
-.admin-login-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 16px;
-}
-
-body.admin-login-page .container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
-
-body.admin-login-page .card {
-    max-width: 450px;
-    margin: 0 auto;
-    text-align: center;
-    background: #cbb89d;
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    box-shadow: 0 12px 10px -10px rgba(0, 0, 0, 0.25);
-}
-
-/* Form styles */
-.admin-login-form {
-    text-align: left;
-}
-
-.admin-login-form .form-group {
-    margin-bottom: 20px;
-}
-
-.admin-login-form .form-group label {
-    display: block;
-    font-family: "Jacques Francois", serif;
-    font-size: 16px;
-    color: var(--primary);
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.admin-login-form .form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background: #fff;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-.admin-login-form .form-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.2);
-}
-
-.forgot-password {
-    text-align: right;
-    margin-bottom: 25px;
-}
-
-.forgot-password a {
-    font-family: "Jacques Francois", serif;
-    font-size: 14px;
-    color: var(--primary);
-    text-decoration: none;
-}
-
-.forgot-password a:hover {
-    text-decoration: underline;
-}
-
-/* Login button */
-body.admin-login-page .btn.login-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary) 0%, #8B5A2B 100%);
-    color: #fff;
-    border: none;
-    padding: 14px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: "Jacques Francois", serif;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 0 #3e2a1f, 0 4px 12px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
-}
-
-body.admin-login-page .btn.login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #3e2a1f, 0 6px 16px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(135deg, #7a5338 0%, #9b6a3e 100%);
-}
-
-body.admin-login-page .btn.login-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #3e2a1f, 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer */
-body.admin-login-page .footer {
-    background: var(--primary);
-    color: #fff;
-    padding: 28px 0;
-    width: 100%;
-    margin-top: 0;
-}
-
-body.admin-login-page .footer-inner {
-    width: min(96%, var(--max-width));
-    margin: 0 auto;
-    text-align: center;
-}
-
-body.admin-login-page .footer-links {
-    font-family: "Jacques Francois", serif;
-    margin-bottom: 12px;
-    font-size: 14px;
-    opacity: 0.95;
-}
-
-body.admin-login-page .footer-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 4px;
-}
-
-body.admin-login-page .footer-links a:hover {
-    text-decoration: underline;
-}
-
-body.admin-login-page .copyright {
-    font-size: 12px;
-    opacity: 0.8;
-    font-family: "Jacques Francois", serif;
-}
-
-/* Responsive */
-@media (max-width: 560px) {
-    body.admin-login-page .card {
-        padding: 30px 20px;
-    }
-    body.admin-login-page .footer-links {
-        font-size: 11px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    body.admin-login-page .btn.login-btn {
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-    .view-website-btn {
-        padding: 6px 16px;
-        font-size: 12px;
-    }
-    .forgot-password a {
-        font-size: 12px;
-    }
-}
-
-
-/* Pop-out button – reusable across pages */
-.btn.pop-out {
-  width: 100%;
-  background: linear-gradient(135deg, var(--primary) 0%, #8B5A2B 100%);
-  color: #fff;
-  border: none;
-  padding: 14px 20px;
-  font-size: 18px;
-  font-weight: 600;
-  font-family: "Jacques Francois", serif;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 0 #3e2a1f, 0 4px 12px rgba(0, 0, 0, 0.2);
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn.pop-out:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 0 #3e2a1f, 0 6px 16px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(135deg, #7a5338 0%, #9b6a3e 100%);
-}
-.btn.pop-out:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #3e2a1f, 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Password visibility toggle button - placed next to input */
-
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.password-wrapper input {
-  flex: 1;
-  padding-right: 40px;
-}
-.toggle-password {
-  position: absolute;
-  right: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0 8px;
-  color: #6F4E37;
-}
-.toggle-password:focus {
-  outline: none;
-}
-
-.password-wrapper input {
-  flex: 1;
-  padding-right: 40px;
-  /* Force consistent styling */
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 12px 40px 12px 16px;
-  font-size: 16px;
-  font-family: inherit;
-  width: 100%;
-  box-sizing: border-box;
 }
