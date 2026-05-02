@@ -418,7 +418,21 @@ INSERT INTO `users` (`UserID`, `Username`, `Email`, `Password`) VALUES
 (1045, 'Mike Johnson', 'mike.johnson@gmail.com', '$2y$10$XFWAsGzyr0IC7UU1zBrGO.Jwe4hXKY3YSoqI3SMZbH9QsmwtficN2'),
 (1048, 'Cole Smith', 'cole.smith@gmail.com', '$2y$10$Qugn6Xb1hhiR.6.vuGsRmu2UxC06Tz4w//QSK2lbvT6EjwjymuMNG');
 
+
 -- --------------------------------------------------------
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Email` varchar(255) NOT NULL,
+  `Token` varchar(64) NOT NULL,
+  `Expiry` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_token` (`Token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Table structure for table `reviews`
